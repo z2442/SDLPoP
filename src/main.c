@@ -18,7 +18,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 The authors of this program may be contacted at https://forum.princed.org
 */
 
+
+#include <pspkernel.h>
+#include <pspdebug.h>
 #include "common.h"
+
+PSP_MODULE_INFO("SDL_PoP_PSP", 0, 1, 1);
+
+PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU);
 
 int main(int argc, char *argv[])
 {

@@ -125,6 +125,8 @@ static int ini_process_boolean(const char* curr_name, const char* value, const c
 	return 0; // not the right option; should check another option_name
 }
 
+#define strtoimax(a,b,c) strtol(a,b,c)
+
 #define ini_process_numeric_func(data_type) \
 static int ini_process_##data_type(const char* curr_name, const char* value, const char* option_name, data_type* target, names_list_type* value_names) { \
 	if(strcasecmp(curr_name, option_name) == 0) { \

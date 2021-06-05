@@ -28,6 +28,7 @@ int screenshot_index = 0;
 
 // Use incrementing numbers and a separate folder, like DOSBox.
 void make_screenshot_filename() {
+	/*
 	// Create the screenshots directory in SDLPoP's directory, even if the current directory is something else.
 	strncpy(screenshots_folder, locate_file("screenshots"), sizeof(screenshots_folder));
 	// Create the folder if it doesn't exist yet:
@@ -44,6 +45,7 @@ void make_screenshot_filename() {
 		}
 		screenshot_index++;
 	}
+	*/
 }
 
 #define EVENT_OFFSET 0 // Add this number to displayed event numbers. Use 1 for Apoplexy compatibility.
@@ -51,6 +53,7 @@ void make_screenshot_filename() {
 #define NUMBER_OF_ROOMS 24
 
 void show_result(int result, const char* what) {
+	/*
 	char sprintf_temp[100];
 	if (result == 0) {
 		printf("Saved %s to \"%s\".\n", what, screenshot_filename);
@@ -62,13 +65,16 @@ void show_result(int result, const char* what) {
 	display_text_bottom(sprintf_temp);
 	text_time_total = 24;
 	text_time_remaining = 24;
+	*/
 }
 
 // Save a screenshot.
 void save_screenshot() {
+	/*
 	make_screenshot_filename();
 	int result = IMG_SavePNG(get_final_surface(), screenshot_filename);
 	show_result(result, "screenshot");
+	*/
 }
 
 // Switch to the given room and draw it.
