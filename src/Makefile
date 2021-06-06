@@ -13,7 +13,7 @@ BIN = ../prince
 CPPFLAGS += -Wall -D_GNU_SOURCE=1
 CFLAGS += -std=gnu99 -O2 -G0
 
-LIBS := -lSDL2 -lSDL2_image -lpng -ljpeg -lGL -lGLU -lglut -lz -lpspvfpu -lpsphprm -lpspsdk -lpspctrl -lpspumd -lpsprtc \
+LIBS := -lSDL2_image -lSDL2 -lpng -ljpeg -lGL -lGLU -lglut -lz -lpspvfpu -lpsphprm -lpspsdk -lpspctrl -lpspumd -lpsprtc \
        -lpsppower -lpspgum -lpspgu -lpspaudiolib -lpspaudio -lpsphttp -lpspssl -lpspwlan \
 	   -lpspnet_adhocmatching -lpspnet_adhoc -lpspnet_adhocctl -lm -lpspvram
 

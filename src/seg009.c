@@ -2435,8 +2435,8 @@ void __pascal far set_gr_mode(byte grmode) {
 #ifdef SDL_HINT_WINDOWS_DISABLE_THREAD_NAMING
 	SDL_SetHint(SDL_HINT_WINDOWS_DISABLE_THREAD_NAMING, "1");
 #endif
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_NOPARACHUTE |
-	             SDL_INIT_GAMECONTROLLER | SDL_INIT_HAPTIC ) != 0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_NOPARACHUTE |
+	             SDL_INIT_GAMECONTROLLER  ) != 0) {
 		sdlperror("set_gr_mode: SDL_Init");
 		quit(1);
 	}
@@ -2444,9 +2444,7 @@ void __pascal far set_gr_mode(byte grmode) {
 	//SDL_EnableUNICODE(1); //deprecated
 	Uint32 flags = 0;
 	if (!start_fullscreen) start_fullscreen = check_param("full") != NULL;
-	if (start_fullscreen) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
-	flags |= SDL_WINDOW_RESIZABLE;
-	flags |= SDL_WINDOW_ALLOW_HIGHDPI; // for Retina displays
+	if (start_fullscreen) flags |= SDL_WINDOW_FULLSCREEN;
 
 	// Should use different default window dimensions when using 4:3 aspect ratio
 	if (use_correct_aspect_ratio && pop_window_width == 640 && pop_window_height == 400) {

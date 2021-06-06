@@ -32,15 +32,10 @@ void fix_sound_priorities();
 
 // seg000:0000
 void far pop_main() {
-	if (check_param("--version") || check_param("-v")) {
-		printf ("SDLPoP v%s\n", SDLPOP_VERSION);
-		exit(0);
-	}
 
-	if (check_param("--help") || check_param("-h") || check_param("-?")) {
+		printf ("SDLPoP v%s\n", SDLPOP_VERSION);
+
 		printf ("See doc/Readme.txt\n");
-		exit(0);
-	}
 
 	const char* temp = check_param("seed=");
 	if (temp != NULL) {
