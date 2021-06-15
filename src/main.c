@@ -27,6 +27,8 @@ PSP_MODULE_INFO("SDL_PoP_PSP", 0, 1, 1);
 
 PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU);
 
+PSP_HEAP_SIZE_KB(-128);
+
 int main(int argc, char *argv[])
 {
 	g_argc = argc;
