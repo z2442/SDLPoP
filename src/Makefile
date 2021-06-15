@@ -11,7 +11,7 @@ BIN = ../prince
 
 
 CPPFLAGS += -Wall -D_GNU_SOURCE=1
-CFLAGS += -std=gnu99 -O2 -G0
+CFLAGS += -std=gnu99 -O2 -G0 -DUSE_ALPHA=1
 
 LIBS := -lSDL2_image -lSDL2 -lpng -ljpeg -lGL -lGLU -lglut -lz -lpspvfpu -lpsphprm -lpspsdk -lpspctrl -lpspumd -lpsprtc \
        -lpsppower -lpspgum -lpspgu -lpspaudiolib -lpspaudio -lpsphttp -lpspssl -lpspwlan \
@@ -19,13 +19,13 @@ LIBS := -lSDL2_image -lSDL2 -lpng -ljpeg -lGL -lGLU -lglut -lz -lpspvfpu -lpsphp
 
 
 EXTRA_TARGETS = EBOOT.PBP
+BUILD_PRX=1
+PSP_LARGE_MEMORY=1
 PSP_EBOOT_TITLE = SDLPop_PSP
+PSP_FW_VERSION=500
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
-
-clean:
-	$(RM) $(OBJS) $(BIN)
 
 install:
 	./install.sh

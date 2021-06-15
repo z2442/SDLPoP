@@ -2110,75 +2110,76 @@ char* sound_name(int index) {
 sound_buffer_type* convert_digi_sound(sound_buffer_type* digi_buffer);
 
 sound_buffer_type* load_sound(int index) {
-	sound_buffer_type* result = NULL;
-	//printf("load_sound(%d)\n", index);
-	init_digi();
-	if (enable_music && !digi_unavailable && result == NULL && index >= 0 && index < max_sound_id) {
-		//printf("Trying to load from music folder\n");
+	/*sound_buffer_type* result = NULL;*/
+	/*//printf("load_sound(%d)\n", index);*/
+	/*init_digi();*/
+	/*if (enable_music && !digi_unavailable && result == NULL && index >= 0 && index < max_sound_id) {*/
+		/*//printf("Trying to load from music folder\n");*/
 
-		//load_sound_names();  // Moved to load_sounds()
-		if (sound_names != NULL && sound_name(index) != NULL) {
-			//printf("Loading from music folder\n");
-			do {
-				FILE* fp = NULL;
-				char filename[POP_MAX_PATH];
-				if (!skip_mod_data_files) {
-					// before checking the root directory, first try mods/MODNAME/
-					snprintf_check(filename, sizeof(filename), "%s/music/%s.ogg", mod_data_path, sound_name(index));
-					fp = fopen(filename, "rb");
-				}
-				if (fp == NULL && !skip_normal_data_files) {
-					snprintf_check(filename, sizeof(filename), "data/music/%s.ogg", sound_name(index));
-					fp = fopen(locate_file(filename), "rb");
-				}
-				if (fp == NULL) {
-					break;
-				}
-				// Read the entire file (undecoded) into memory.
-				struct stat info;
-				if (fstat(fileno(fp), &info))
-					break;
-				size_t file_size = (size_t) MAX(0, info.st_size);
-				byte* file_contents = malloc(file_size);
-				if (fread(file_contents, 1, file_size, fp) != file_size) {
-					free(file_contents);
-					fclose(fp);
-					break;
-				}
-				fclose(fp);
+		/*//load_sound_names();  // Moved to load_sounds()*/
+		/*if (sound_names != NULL && sound_name(index) != NULL) {*/
+			/*//printf("Loading from music folder\n");*/
+			/*do {*/
+				/*FILE* fp = NULL;*/
+				/*char filename[POP_MAX_PATH];*/
+				/*if (!skip_mod_data_files) {*/
+					/*// before checking the root directory, first try mods/MODNAME/*/
+					/*snprintf_check(filename, sizeof(filename), "%s/music/%s.ogg", mod_data_path, sound_name(index));*/
+					/*fp = fopen(filename, "rb");*/
+				/*}*/
+				/*if (fp == NULL && !skip_normal_data_files) {*/
+					/*snprintf_check(filename, sizeof(filename), "data/music/%s.ogg", sound_name(index));*/
+					/*fp = fopen(locate_file(filename), "rb");*/
+				/*}*/
+				/*if (fp == NULL) {*/
+					/*break;*/
+				/*}*/
+				/*// Read the entire file (undecoded) into memory.*/
+				/*struct stat info;*/
+				/*if (fstat(fileno(fp), &info))*/
+					/*break;*/
+				/*size_t file_size = (size_t) MAX(0, info.st_size);*/
+				/*byte* file_contents = malloc(file_size);*/
+				/*if (fread(file_contents, 1, file_size, fp) != file_size) {*/
+					/*free(file_contents);*/
+					/*fclose(fp);*/
+					/*break;*/
+				/*}*/
+				/*fclose(fp);*/
 
-				// Decoding the entire file immediately would make the loading time much longer.
-				// However, we can also create the decoder now, and only use it when we are actually playing the file.
-				// (In the audio callback, we'll decode chunks of samples to the output stream, as needed).
-				stb_vorbis* decoder = stb_vorbis_open_memory(file_contents, file_size, NULL, NULL);
-				if (decoder == NULL) {
-					free(file_contents);
-					break;
-				}
-				result = malloc(sizeof(sound_buffer_type));
-				result->type = sound_ogg;
-				result->ogg.total_length = stb_vorbis_stream_length_in_samples(decoder) * sizeof(short);
-				result->ogg.file_contents = file_contents; // Remember in case we want to free the sound later.
-				result->ogg.decoder = decoder;
-			} while(0); // do once (breakable block)
-		} else {
-			//printf("sound_names = %p\n", sound_names);
-			//printf("sound_names[%d] = %p\n", index, sound_name(index));
-		}
-	}
-	if (result == NULL) {
-		//printf("Trying to load from DAT\n");
-		result = (sound_buffer_type*) load_from_opendats_alloc(index + 10000, "bin", NULL, NULL);
-	}
-	if (result != NULL && (result->type & 7) == sound_digi) {
-		sound_buffer_type* converted = convert_digi_sound(result);
-		free(result);
-		result = converted;
-	}
-	if (result == NULL && !skip_normal_data_files) {
-		fprintf(stderr, "Failed to load sound %d '%s'\n", index, sound_name(index));
-	}
-	return result;
+				/*// Decoding the entire file immediately would make the loading time much longer.*/
+				/*// However, we can also create the decoder now, and only use it when we are actually playing the file.*/
+				/*// (In the audio callback, we'll decode chunks of samples to the output stream, as needed).*/
+				/*stb_vorbis* decoder = stb_vorbis_open_memory(file_contents, file_size, NULL, NULL);*/
+				/*if (decoder == NULL) {*/
+					/*free(file_contents);*/
+					/*break;*/
+				/*}*/
+				/*result = malloc(sizeof(sound_buffer_type));*/
+				/*result->type = sound_ogg;*/
+				/*result->ogg.total_length = stb_vorbis_stream_length_in_samples(decoder) * sizeof(short);*/
+				/*result->ogg.file_contents = file_contents; // Remember in case we want to free the sound later.*/
+				/*result->ogg.decoder = decoder;*/
+			/*} while(0); // do once (breakable block)*/
+		/*} else {*/
+			/*//printf("sound_names = %p\n", sound_names);*/
+			/*//printf("sound_names[%d] = %p\n", index, sound_name(index));*/
+		/*}*/
+	/*}*/
+	/*if (result == NULL) {*/
+		/*//printf("Trying to load from DAT\n");*/
+		/*result = (sound_buffer_type*) load_from_opendats_alloc(index + 10000, "bin", NULL, NULL);*/
+	/*}*/
+	/*if (result != NULL && (result->type & 7) == sound_digi) {*/
+		/*sound_buffer_type* converted = convert_digi_sound(result);*/
+		/*free(result);*/
+		/*result = converted;*/
+	/*}*/
+	/*if (result == NULL && !skip_normal_data_files) {*/
+		/*fprintf(stderr, "Failed to load sound %d '%s'\n", index, sound_name(index));*/
+	/*}*/
+	/*return result;*/
+    return NULL;
 }
 
 void play_ogg_sound(sound_buffer_type *buffer) {
